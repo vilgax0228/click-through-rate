@@ -78,7 +78,7 @@ head(dados)
 
 Observando a correlação entre o CTR e College_Grad:
 ```R
-cor(dados[,2], dados[,3])
+cor(dados[,2], dados[,3])  # correlação entre a segunda coluna e a terceira
 [1] -0.6275642
 ```
 
@@ -137,9 +137,29 @@ Multiple R-squared:  0.3938,	Adjusted R-squared:  0.3815
 F-statistic: 31.84 on 1 and 49 DF,  p-value: 8.282e-07
 ```
 
+A relação entre educação e CTR é interessante, mas vamos colocá-la em perspectiva, considerando o desvio padrão de "College Grad".
 
+```R
+desvio_padrao = sd(dados$College_Grad)
+[1] 0.04749804
+```
 
+Então, uma diferença "típica" entre um estado e outro é algo em torno de 0,05.
 
+Multiplicando pelo valor de -0.01373 mencionado acima, isso se traduz em uma diferença na taxa de cliques (click-through rate) entre os estados de cerca de 0,0005.
+```R
+differ = desvio_padrao * coef(model)[2]
+differ
+ College_Grad 
+-0.0006521483
+```
 
+Isso certamente não é suficiente para ter qualquer significado prático.
+
+Portanto, deixando de lado questões como se nossos dados constituem uma amostra de alguma "população" de estados potenciais, os dados sugerem que realmente não há uma relação substancial entre o nível educacional e a taxa de cliques (CTR).
+
+A postagem original do blog sobre esses dados, ao observar o valor negativo de ^d, alertou que, embora isso pareça indicar que pessoas mais educadas clicam menos, "*correlação não implica causalidade*".
+
+Ótimo conselho, mas é igualmente importante notar aqui que, mesmo que o efeito seja causal, ele é muito pequeno.
 
 
